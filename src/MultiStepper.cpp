@@ -3,15 +3,15 @@
 // Copyright (C) 2015 Mike McCauley
 // $Id: MultiStepper.cpp,v 1.3 2020/04/20 00:15:03 mikem Exp mikem $
 
-#include "MultiStepper.h"
-#include "AccelStepper.h"
+#include "MultiStepper.hpp"
+#include "AccelStepper.hpp"
 
 MultiStepper::MultiStepper()
     : _num_steppers(0)
 {
 }
 
-boolean MultiStepper::addStepper(AccelStepper& stepper)
+bool MultiStepper::addStepper(AccelStepper& stepper)
 {
     if (_num_steppers >= MULTISTEPPER_MAX_STEPPERS)
 	return false; // No room for more
@@ -49,10 +49,10 @@ void MultiStepper::moveTo(long absolute[])
 }
 
 // Returns true if any motor is still running to the target position.
-boolean MultiStepper::run()
+bool MultiStepper::run()
 {
     uint8_t i;
-    boolean ret = false;
+    bool ret = false;
     for (i = 0; i < _num_steppers; i++)
     {
 	if ( _steppers[i]->distanceToGo() != 0)
